@@ -1,0 +1,56 @@
+<html>
+<head>
+
+	<title>1st leaflet - Leaflet</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+	integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+	integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin="">
+  </script>
+
+</head>
+<body>
+
+	<div id="mapid" style="width: 800px; height: 600px;"></div>
+	<script src="data1.geojson" type="text/javascript"></script>
+	<script>
+
+		var mymap = L.map('mapid').setView([21.07204051307818, 105.7739627412891], 20);
+
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(mymap);
+
+		L.geoJSON(HUMGPoint).addTo(mymap);
+
+		var myStyle1 = {
+    "color": "purple",
+    "weight": 5,
+    "opacity": 0.65
+		};
+
+		var myStyle2 = {
+		"color": "green",
+		"weight": 5,
+		"opacity": 0.65
+		};
+
+		L.geoJSON(myLines, {
+    style: function(feature) {
+        /*switch (feature.id) {
+            case 1: return myStyle1;
+            case 2: return myStyle2;
+        }*/
+				switch (feature.properties.name) {
+            case "line 1": return myStyle1;
+            case "line 2": return myStyle2;
+        }
+    }
+		}).addTo(mymap);
+
+	</script>
+
+</body>
+</html>

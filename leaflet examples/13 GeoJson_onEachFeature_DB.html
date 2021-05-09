@@ -1,0 +1,67 @@
+<html>
+<head>
+
+	<title>1st leaflet - Leaflet</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+	integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+	integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin="">
+  </script>
+
+</head>
+<body>
+
+	<div id="mapid" style="width: 800px; height: 600px;"></div>
+	<input id='id'>
+	<input id='name'>
+	<input id='address'>
+	<input id='intro'>
+	<script>
+
+		var mymap = L.map('mapid').setView([21.07204051307818, 105.7739627412891], 20);
+
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(mymap);
+
+		function createCustomIcon (feature, latlng) {
+			let HUMG = L.icon({
+				iconUrl: 'icon/building1.png',
+				iconSize:     [28, 65], // size of the icon
+				iconAnchor:   [22, 30], // point of the icon which will correspond to marker's location
+				popupAnchor:  [10, 10] // point from which the popup should open relative to the iconAnchor
+				});
+			  return L.marker(latlng, { icon: HUMG })
+		}
+
+		function onEachFeature(feature, layer) {
+    // does this feature have a property
+    if (feature.properties) {
+        layer.bindPopup("<b>"+feature.properties.name+"</b><br/><b>" + feature.properties.address+ "</b><br/>"  + feature.properties.Intro);
+				layer.on('click', function (e) {
+						 // e = event
+						 document.querySelector('#id').value = feature.id;
+						 document.querySelector('#name').value = feature.properties.name;
+						 document.querySelector('#address').value = feature.properties.address;
+						 document.querySelector('#intro').value = feature.properties.Intro;
+					 });
+    	}
+		}
+
+
+		// AJAX to get data from API
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+		  if (this.readyState == 4 && this.status == 200) {
+		    var HUMG =  JSON.parse(this.responseText); // convert responseText to JSON object
+				L.geoJSON(HUMG, {onEachFeature: onEachFeature, 	pointToLayer: createCustomIcon}).addTo(mymap);
+		  }
+		};
+		xmlhttp.open("GET", "http://localhost:5000/api/v1/leaflet", true);
+		xmlhttp.send();
+	</script>
+
+</body>
+</html>

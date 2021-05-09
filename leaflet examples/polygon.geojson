@@ -1,0 +1,80 @@
+var poly ={
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              [
+                579967.6142,
+                2330463.3689
+              ],
+              [
+                579967.7363,
+                2330438.1004
+              ],
+              [
+                579946.774,
+                2330439.7811
+              ],
+              [
+                579948.4517,
+                2330462.3909
+              ],
+              [
+                579967.6142,
+                2330463.3689
+              ]
+            ]
+          ]
+        ],
+        "type": "MultiPolygon"
+      },
+      "id": 1,
+      "properties": {
+        "diaChi": "Pho Vien",
+        "dienTich": 480.55,
+        "loaiNha": "kinh doanh",
+        "soTang": 1.0
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              [
+                580037.1022,
+                2330448.9208
+              ],
+              [
+                580071.9229,
+                2330445.7181
+              ],
+              [
+                580060.5177,
+                2330427.4694
+              ],
+              [
+                580044.4757,
+                2330427.8346
+              ],
+              [
+                580037.1022,
+                2330448.9208
+              ]
+            ]
+          ]
+        ],
+        "type": "MultiPolygon"
+      },
+      "id": 2,
+      "properties": {
+        "diaChi": "Pho Vien",
+        "dienTich": 503.766,
+        "loaiNha": "kinh doanh",
+        "soTang": 2.0
+      },
+      "type": "Feature"
+    }]}

@@ -1,0 +1,57 @@
+var HUMGPoint = {
+    "type": "FeatureCollection",
+    "features":[
+        {
+          "type": "Feature",
+          "properties": {
+              "name": "HUMG",
+              "address": "18 Pho Vien",
+              "Intro": "HUMG la truong dai hoc da nganh"
+          },
+          "geometry": {
+              "type": "Point",
+              "coordinates": [105.774012, 21.071736]
+          },
+          "id": 1
+    }, {
+          "type": "Feature",
+          "properties": {
+              "name": "HUMG 1",
+              "address": "18 Pho Vien",
+              "Intro": "HUMG la truong dai hoc da nganh"
+          },
+          "geometry": {
+              "type": "Point",
+              "coordinates": [105.774312, 21.072736]
+          },
+          "id": 2
+}
+]};
+
+var myLines = {
+    "type": "FeatureCollection",
+    "features":[
+        {
+          "type": "Feature",
+          "properties": {
+              "name": "line 1"
+          },
+          "geometry": {
+              "type": "LineString",
+              "coordinates": [[105.7741656871162, 21.07136971971953],
+              [105.7749656871162, 21.07126850241241]]
+          },
+          "id": 1
+        },{
+          "type": "Feature",
+          "properties": {
+              "name": "line 2"
+          },
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [[105.7741656871162, 21.07146971971953],
+            [105.7749656871162, 21.07156850241241]]
+          },
+          "id": 2
+        },
+  ]}

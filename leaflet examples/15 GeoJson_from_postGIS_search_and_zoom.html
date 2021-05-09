@@ -1,0 +1,98 @@
+<html>
+<head>
+
+	<title>1st leaflet - Leaflet</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+	integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+	integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin="">
+  </script>
+	<link rel="stylesheet" href="../search/search.css" />
+	<script src="../src/search.js"></script>
+</head>
+<body>
+
+	<div id="mapid" style="width: 800px; height: 600px;"></div>
+	<input id="filterById">
+	<input type=button onclick="filter()" value="Filter"></input>
+	<script>
+
+		var mymap = L.map('mapid').setView([21.071566, 105.770268], 20);
+
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(mymap);
+
+		var myStyle1 = {
+		"color": "purple",
+		"fill-color": "purple",
+		"weight": 5,
+		"opacity": 0.65
+		};
+
+		var myStyle2 = {
+		"color": "green",
+		"fill-color": "green",
+		"weight": 5,
+		"opacity": 0.65
+		};
+
+		var foundFeature = {
+			weight: 5,
+			color: '#666',
+			dashArray: '',
+			fillOpacity: 0.7
+		};
+
+		// AJAX to get data from API
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+		  if (this.readyState == 4 && this.status == 200) {
+		    var HUMG =  JSON.parse(this.responseText); // convert responseText to JSON object
+				L.geoJSON(HUMG, {
+		    style: function(feature) {
+						switch (feature.properties.loaiNha) {
+		            case "kinh doanh": return myStyle1;
+		            case "bt": return myStyle2;
+		        }
+		    }
+				}).addTo(mymap);
+
+		  }
+		};
+		xmlhttp.open("GET", "http://localhost:5000/api/v1/postGIS", true);
+		xmlhttp.send();
+		var HUMGFilterLayer;
+		var HUMG;
+// create function to find a specific features
+		function filter(){
+			// AJAX to get data from API
+			//mymap.removeLayer(HUMGLayer);
+
+			try{
+					HUMGFilterLayer.clearLayers();
+				//	document.querySelector('#filterByLoaiNha').innerHTML = HUMG.geometry.coordinates;
+
+			}
+
+			catch{}
+
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var HUMG =  JSON.parse(this.responseText); // convert responseText to JSON object
+					var HUMGFilterLayer = L.geoJSON(HUMG, {style: foundFeature}).addTo(mymap);
+					var zoomCoords = HUMG.features;
+					document.querySelector('#demo').innerHTML = zoomCoords;
+		//			mymap.setView(zoomCoords[0], zoomCoords[1],20);
+				}
+			};
+			xmlhttp.open("GET", "http://localhost:5000/api/v1/postGIS/filterById/" + document.querySelector('#filterById').value, true);
+			xmlhttp.send();
+		}
+	</script>
+
+</body>
+</html>

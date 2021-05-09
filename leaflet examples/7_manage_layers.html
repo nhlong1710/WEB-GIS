@@ -1,0 +1,45 @@
+<html>
+<head>
+
+	<title>1st leaflet - Leaflet</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+	integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+	integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin="">
+  </script>
+
+</head>
+<body>
+
+	<div id="mapid" style="width: 800px; height: 600px;"></div>
+
+	<script src="data1.geojson" type="text/javascript"></script>
+
+	<script>
+
+		var mymap = L.map('mapid').setView([21.07204051307818, 105.7739627412891], 20);
+
+		var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(mymap);
+
+		var HUMG = L.geoJSON(HUMGPoint).addTo(mymap);
+		var lines = L.geoJSON(myLines).addTo(mymap);
+
+		var baseLayers = {
+				"Open street map": osm
+		};
+
+		var overlayMaps = {
+		    "HUMG": HUMG,
+				"Lines": lines
+		};
+
+		L.control.layers(baseLayers, overlayMaps).addTo(mymap);
+
+	</script>
+
+</body>
+</html>

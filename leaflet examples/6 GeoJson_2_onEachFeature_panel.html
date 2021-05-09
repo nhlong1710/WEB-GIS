@@ -1,0 +1,70 @@
+<html>
+<head>
+
+	<title>1st leaflet - Leaflet</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+	integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+	integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin="">
+  </script>
+
+</head>
+<body>
+
+	<div id="mapid" style="width: 800px; height: 600px;"></div>
+	<input id='id'>
+	<input id='name'>
+	<script src="data1.geojson" type="text/javascript"></script>
+	<script>
+
+		var mymap = L.map('mapid').setView([21.07204051307818, 105.7739627412891], 20);
+
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(mymap);
+
+		var HUMG1 = L.icon({
+			iconUrl: 'icon/building1.png',
+			iconSize:     [28, 65], // size of the icon
+			iconAnchor:   [10, 15], // point of the icon which will correspond to marker's location
+			popupAnchor:  [3, 15] // point from which the popup should open relative to the iconAnchor
+			});
+
+		var HUMG2 = L.icon({
+			iconUrl: 'icon/building2.png',
+			iconSize:     [28, 65], // size of the icon
+			iconAnchor:   [10, 15], // point of the icon which will correspond to marker's location
+			popupAnchor:  [3, 15] // point from which the popup should open relative to the iconAnchor
+			});
+
+
+		function onEachFeature(feature, layer) {
+	    // does this feature have a property
+	    if (feature.properties) {
+	        layer.bindPopup("<b>" + feature.properties.name + feature.id + "</b><br/><b>"
+					+feature.properties.address+
+					"</b><br/>"  + feature.properties.Intro + "<a href='http://localhost:5000/addNewDailyFlight_s2/'"
+					+ "bac" + feature.name + ">Link to edit</a>");
+
+					layer.on('click', function(e) {
+				       // e = event
+							 document.querySelector('#id').value = feature.id;
+		 					 document.querySelector('#name').value = feature.properties.name;
+				     });
+	    	}
+			}
+		// create the GeoJSON layer
+		L.geoJSON(HUMGPoint, { onEachFeature: onEachFeature,
+	    pointToLayer: function (feature, latlng) {
+					switch (feature.properties.name) {
+	            case "HUMG": return L.marker(latlng, {icon: HUMG1});
+	            case "HUMG 1": return L.marker(latlng, {icon: HUMG2});
+	        }
+	    }}).addTo(mymap);
+
+	</script>
+
+</body>
+</html>

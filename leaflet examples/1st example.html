@@ -1,0 +1,53 @@
+<html>
+<head>
+
+	<title>1st leaflet - Leaflet</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+	integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+	integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin="">
+  </script>
+
+</head>
+<body>
+
+	<div id="mapid" style="width: 1000px; height: 800px;"></div>
+
+	<script>
+
+		var mymap = L.map('mapid').setView([21.07204051307818, 105.7739627412891], 15);
+
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(mymap);
+
+		L.marker([21.07204051307818, 105.7739627412891]).addTo(mymap)
+			.bindPopup("<b>Hello HUMG!</b><br />I am a popup.").openPopup();
+
+		L.polyline([
+	             [21.07186971971953, 105.7741656871162],
+	             [21.07166850241241, 105.7749656871162],
+				 [21.07165850241241, 105.7745656871162]]
+						 ).addTo(mymap).bindPopup("<b>Hello Line!</b><br />I am a popup.");
+
+		L.polygon([
+			[21.07166471971953, 105.7742656871162],
+			[21.07166550241241, 105.7744247091854],
+			[21.07173567512403, 105.7742659821129]
+		]).addTo(mymap).bindPopup("Hoi Truong 300");
+
+		var popup = L.popup();
+		function onMapClick(e) {
+				popup
+				.setLatLng(e.latlng)
+				.setContent("You clicked the map at " + e.latlng.toString())
+				.openOn(mymap);
+		}
+
+		mymap.on('click', onMapClick);
+	</script>
+
+</body>
+</html>

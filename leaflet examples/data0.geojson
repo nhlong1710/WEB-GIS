@@ -1,0 +1,29 @@
+ {
+    "type": "FeatureCollection",
+    "features":[
+        {
+          "type": "Feature",
+          "properties": {
+              "name": "HUMG",
+              "address": "18 Pho Vien",
+              "Intro": "HUMG la truong dai hoc da nganh"
+          },
+          "geometry": {
+              "type": "Point",
+              "coordinates": [105.774012, 21.071736]
+          },
+          "id": 1
+    }, {
+          "type": "Feature",
+          "properties": {
+              "name": "HUMG 1",
+              "address": "18 Pho Vien",
+              "Intro": "HUMG la truong dai hoc da nganh"
+          },
+          "geometry": {
+              "type": "Point",
+              "coordinates": [105.774312, 21.072736]
+          },
+          "id": 2
+}
+]}
